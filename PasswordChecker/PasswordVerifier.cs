@@ -60,8 +60,10 @@ namespace PasswordChecker
             {
                 return true;
             }
-
-            throw new Exception("Password must contain at least one uppercase letter");
+            else
+            {
+                throw new Exception("Password must contain at least one uppercase letter");
+            }
         }
 
         private static bool VerifyContainsLowercaseLetter(string password)
@@ -70,18 +72,22 @@ namespace PasswordChecker
             {
                 return true;
             }
-
-            throw new Exception("Password must contain at least one lowercase letter");
+            else
+            {
+                throw new Exception("Password must contain at least one lowercase letter"); 
+            }
         }
 
         private static bool VerifyContainsNumber(string password)
         {
-            if (password.Any(char.IsNumber))
+            if (password.Any(char.IsDigit))
             {
                 return true;
             }
-
-            throw new Exception("Password must contain at least one number");
+            else
+            {
+                throw new Exception("Password must contain at least one number"); 
+            }
         }
     }
 }
