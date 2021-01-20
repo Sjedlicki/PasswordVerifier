@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace PasswordChecker
@@ -16,14 +17,14 @@ namespace PasswordChecker
                 bool containsLowercase = VerifyContainsLowercaseLetter(password);
                 bool containsNumber = VerifyContainsNumber(password);
 
-                if (validLength && containsUppercase && containsLowercase && containsNumber)
+                if (validLength && isNotNull && containsUppercase && containsLowercase && containsNumber)
                 {
                     return true;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);                
+                Console.WriteLine(ex.Message);
             }
 
             return false;
@@ -31,7 +32,7 @@ namespace PasswordChecker
 
         private static bool VerifyLength(string password)
         {
-            if(password.Length >= 8)
+            if (password.Length >= 8)
             {
                 return true;
             }
@@ -43,7 +44,7 @@ namespace PasswordChecker
 
         private static bool VerifyIsNotNull(string password)
         {
-            if(string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(password))
             {
                 throw new Exception("Password cannot be empty");
             }
@@ -55,12 +56,9 @@ namespace PasswordChecker
 
         private static bool VerifyContainsUppercaseLetter(string password)
         {
-            foreach(char c in password)
+            if (password.Any(char.IsLetter))
             {
-                if(char.IsUpper(c))
-                {
-                    return true;
-                }
+                return true;
             }
 
             throw new Exception("Password must contain at least one uppercase letter");
@@ -68,12 +66,9 @@ namespace PasswordChecker
 
         private static bool VerifyContainsLowercaseLetter(string password)
         {
-            foreach (char c in password)
+            if (password.Any(char.IsLower))
             {
-                if (char.IsLower(c))
-                {
-                    return true;
-                }
+                return true;
             }
 
             throw new Exception("Password must contain at least one lowercase letter");
@@ -81,12 +76,9 @@ namespace PasswordChecker
 
         private static bool VerifyContainsNumber(string password)
         {
-            foreach (char c in password)
+            if (password.Any(char.IsNumber))
             {
-                if (char.IsDigit(c))
-                {
-                    return true;
-                }
+                return true;
             }
 
             throw new Exception("Password must contain at least one number");
